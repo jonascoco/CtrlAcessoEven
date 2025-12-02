@@ -1,32 +1,54 @@
-create table usuario (
-    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL,
-    telefone TEXT NOT NULL
+create table evento (
+    id_evento INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(80) NOT NULL,
+    endereco VARCHAR(80) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    cep VARCHAR(8) NOT NULL,
+    bairro VARCHAR(30) NOT NULL,
+    cidade VARCHAR(30) NOT NULL,
+    estado VARCHAR(2) NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_termino DATE NOT NULL
 );
 
------- tabela cartao
-create table cartao(
-    id_cartao INTEGER PRIMARY KEY AUTOINCREMENT,
-    fase TEXT(1),
-    id_usuario INTEGER,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+create table empresa (
+    id_empresa INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(80) NOT NULL,
+    estande VARCHAR(10) NOT NULL,
+    corredor VARCHAR(10) NOT NULL,
+    responsavel VARCHAR(40) NOT NULL,
+    FOREIGN KEY (id_evento) REFERENCES evento(id_evento)
 );
 
-create table registro(
-    id_registro INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_cartao INTEGER,
-    FOREIGN KEY (id_cartao) REFERENCES cartao(id_cartao)
+create table visitante (
+    id_visitante INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(80) NOT NULL,
+    cpf int NOT NULL,
+    identidade VARCHAR(15) NOT NULL,
+    endereco VARCHAR(80) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    cep VARCHAR(8) NOT NULL,
+    bairro VARCHAR(30) NOT NULL,
+    cidade VARCHAR(30) NOT NULL,
+    estado VARCHAR(2) NOT NULL,
+    empresa_trabalho VARCHAR(40) NOT NULL,
+    data_cadastro DATE NOT NULL,
+    codigo_acesso VARCHAR(10) NOT NULL,
+    e_mail VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_evento) REFERENCES evento(id_evento)
 );
 
-INSERT INTO USUARIO(NOME,TELEFONE)
-VALUES
-('JONAS COCO','11996188680');
+create table acessoevento (
+    id_acessoevento INTEGER PRIMARY KEY AUTOINCREMENT,
+    FOREIGN KEY (id_visitante) REFERENCES visitante(id_visitante),
+    FOREIGN KEY (id_evento) REFERENCES evento(id_evento),
+    data_acesso DATE NOT NULL
+);
 
-SELECT * FROM USUARIO;
-
-INSERT INTO CARTAO(FASE,ID_USUARIO)
-VALUES
-('L',1);
-
-SELECT * FROM CARTAO;
-
+create table visitaempresa (
+    id_visitaempresa INTEGER PRIMARY KEY AUTOINCREMENT,
+    FOREIGN KEY (id_visitante) REFERENCES visitante(id_visitante),
+    FOREIGN KEY (id_evento) REFERENCES evento(id_evento),
+    FOREIGN KEY (id_empresa) REFERENCES empresa(id_empresa),
+    data_visita DATE NOT NULL
+);
