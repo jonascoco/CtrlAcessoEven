@@ -87,8 +87,42 @@ VALUES
     'SÃO PAULO',
     'SP',
     'EMPRESA DO TRABALHO XY',
-    '2025-12-01',
+    '2025-11-15',
     'IFTI00450',
     'EMAIL@EMAILXY.COM.BR',
     1
 );
+
+
+INSERT INTO acessoevento
+(
+    id_visitante,
+    id_evento,
+    data_acesso
+)
+VALUES
+(
+    1,
+    1,
+    '2025-11-29'
+);
+
+
+
+INSERT INTO visitaempresa
+(
+    id_visitante,
+    id_evento,
+    id_empresa,
+    data_visita
+)
+VALUES
+(
+    1,
+    1,
+    1,
+    '2025-11-29'
+);
+
+
+
